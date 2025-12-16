@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>All Dental</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-800">
+  <header class="bg-blue-600 text-white p-4 flex justify-between items-center">
+    <div>
+      <a href="{% url 'website:home' %}">
+        <img src="{% static 'website/images/logo.png' %}" alt="All Dental" class="h-10">
+      </a>
+    </div>
+    <nav class="space-x-4 flex items-center">
+      <a href="{% url 'website:services' %}">Servicios</a>
+      <a href="{% url 'website:about' %}">Sobre Nosotros</a>
+      <a href="{% url 'website:booking' %}">Reserva</a>
+      <a href="{% url 'website:contact' %}">Contacto</a>
+      <a href="{% url 'website:blog' %}">Blog</a>
+
+      {% if request.user.is_authenticated %}
+        {% if request.user.is_staff %}
+          <a href="{% url 'admin:index' %}" class="ml-4">Admin</a>
+        {% endif %}
+        <a href="{% url 'admin:logout' %}" class="ml-4">Logout</a>
+      {% else %}
+        <a href="{% url 'admin:login' %}" class="ml-4">Login</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main class="container mx-auto p-6">
+    {% block content %}
+    <!-- Aquí irá el contenido de cada página -->
+    {% endblock %}
+  </main>
+
+  <footer class="bg-gray-100 p-4 text-center">
+    <p>© {% now "Y" %} All Dental. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>
+

@@ -1,0 +1,14 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block content %}
+<article class="prose lg:prose-xl mx-auto py-8">
+  <h1>{{ post.title }}</h1>
+  <p class="text-gray-500">Publicado el {{ post.published_at|date:"F d, Y" }}</p>
+  {% if post.featured_image %}
+    <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-full rounded-lg shadow my-6">
+  {% endif %}
+  <div>{{ post.content|linebreaks }}</div>
+  <a href="{% url 'website:blog' %}" class="mt-8 inline-block text-blue-600 hover:underline">← Volver al blog</a>
+</article>
+{% endblock %}

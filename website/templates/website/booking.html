@@ -1,0 +1,58 @@
+{% extends 'website/base.html' %}
+{% load widget_tweaks static %}
+
+{% block content %}
+<section class="max-w-xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+  <h1 class="text-3xl font-bold text-center mb-6">Reserva tu Hora</h1>
+
+  {% if messages %}
+    <div class="mb-4">
+      {% for message in messages %}
+        <div class="p-4 rounded-lg mb-2 {% if message.tags == 'success' %}
+                bg-green-100 text-green-800
+              {% else %}
+                bg-red-100 text-red-800
+              {% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <form method="post" class="space-y-6">
+    {% csrf_token %}
+    <div class="grid gap-4">
+      <div>
+        <label for="{{ form.name.id_for_label }}" class="block font-medium">Nombre</label>
+        {{ form.name|add_class:"w-full border rounded p-2" }}
+      </div>
+      <div>
+        <label for="{{ form.email.id_for_label }}" class="block font-medium">Email</label>
+        {{ form.email|add_class:"w-full border rounded p-2" }}
+      </div>
+      <div>
+        <label for="{{ form.service.id_for_label }}" class="block font-medium">Servicio</label>
+        {{ form.service|add_class:"w-full border rounded p-2" }}
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="{{ form.date.id_for_label }}" class="block font-medium">Fecha</label>
+          {{ form.date|add_class:"w-full border rounded p-2" }}
+        </div>
+        <div>
+          <label for="{{ form.time.id_for_label }}" class="block font-medium">Hora</label>
+          {{ form.time|add_class:"w-full border rounded p-2" }}
+        </div>
+      </div>
+      <div>
+        <label for="{{ form.message.id_for_label }}" class="block font-medium">Comentarios</label>
+        {{ form.message|add_class:"w-full border rounded p-2 h-24" }}
+      </div>
+    </div>
+    <button type="submit"
+            class="w-full bg-blue-600 text-white py-3 rounded-full hover:bg-blue-700 transition">
+      Confirmar Reserva
+    </button>
+  </form>
+</section>
+{% endblock %}
